@@ -44,7 +44,7 @@ public class UploadVideoUseCase implements UploadVideoInputPort {
                     "videos/" + userDto.userId()+ "/" + videoFile.getOriginalFilename(),
                     videoFile.getOriginalFilename(),
                     LocalDateTime.now(),
-                    StatusProcess.PROCESSING);
+                    StatusProcess.PENDING);
 
             uploadVideoDynamoAdapter.save(newUploadVideo);
             uploadVideoOutputPort.uploadVideoToStorage(newUploadVideo.getVideoPath(), videoFile);
