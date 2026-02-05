@@ -1,6 +1,7 @@
 package com.framedrop.upload_api.adapters.config;
 
 import com.framedrop.upload_api.adapters.out.UploadS3Adapter;
+import com.framedrop.upload_api.adapters.out.dynamodb.UploadVideoDynamoAdapter;
 import com.framedrop.upload_api.core.application.usecases.UploadVideoUseCase;
 import com.framedrop.upload_api.core.domain.ports.in.UploadVideoInputPort;
 import com.framedrop.upload_api.core.domain.ports.out.UploadVideoOutputPort;
@@ -12,13 +13,17 @@ import software.amazon.awssdk.services.s3.S3Client;
 
 @Configuration
 @RequiredArgsConstructor
-public class UploadVideoBean {
+public class UploadVideoConfig {
 
 
 
     @Bean
-    public UploadVideoInputPort createUploadVideoInputPort(UploadVideoOutputPort uploadVideoOutputPort) {
-        return new UploadVideoUseCase(uploadVideoOutputPort);
+    public UploadVideoInputPort createUploadVideoInputPort(UploadVideoOutputPort uploadVideoOutputPort,
+                                                           UploadVideoDynamoAdapter uploadVideoDynamoAdapter) {
+
+        return new UploadVideoUseCase(
+                uploadVideoOutputPort,
+                uploadVideoDynamoAdapter);
     }
 
     @Bean
