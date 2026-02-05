@@ -48,7 +48,6 @@
             <version>4.5.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb</artifactId>
@@ -61,9 +60,6 @@
             <version>2.20.0</version>
         </dependency>
 
-
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
@@ -74,6 +70,13 @@
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
             <version>2.20.21</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>3.2.3</version>
+            <scope>compile</scope>
         </dependency>
 	</dependencies>
 

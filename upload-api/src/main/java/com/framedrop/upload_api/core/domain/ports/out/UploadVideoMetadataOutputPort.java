@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface UploadVideoMetadataOutputPort {
 
-    UploadVideo getByUploadVideoByUserId(String userId);
-    void saveUploadVideoMetadata(UploadVideo uploadVideo);
-    List<UploadVideo> getAllUploadVideosString();
+    UploadVideo getUploadVideoByUserId(String userId);
+    void save(UploadVideo uploadVideo);
+    List<UploadVideo> getAll();
 
 }

@@ -5,6 +5,7 @@ import com.framedrop.upload_api.adapters.out.dynamodb.UploadVideoDynamoAdapter;
 import com.framedrop.upload_api.core.application.usecases.UploadVideoUseCase;
 import com.framedrop.upload_api.core.domain.ports.in.UploadVideoInputPort;
 import com.framedrop.upload_api.core.domain.ports.out.UploadVideoOutputPort;
+import com.framedrop.upload_api.core.domain.ports.out.ValidateVideoOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,18 +17,16 @@ import software.amazon.awssdk.services.s3.S3Client;
 public class UploadVideoConfig {
 
 
-
     @Bean
     public UploadVideoInputPort createUploadVideoInputPort(UploadVideoOutputPort uploadVideoOutputPort,
-                                                           UploadVideoDynamoAdapter uploadVideoDynamoAdapter) {
+                                                           UploadVideoDynamoAdapter uploadVideoDynamoAdapter,
+                                                           ValidateVideoOutputPort validateVideoOutputPort) {
 
-        return new UploadVideoUseCase(
-                uploadVideoOutputPort,
-                uploadVideoDynamoAdapter);
+        return new UploadVideoUseCase(uploadVideoOutputPort, uploadVideoDynamoAdapter, validateVideoOutputPort);
     }
 
     @Bean
     public UploadVideoOutputPort createUploadVideoOutputPort(){
-        return new UploadS3Adapter(S3Client.builder().region(Region.US_EAST_1).build(),  "framedrop-upload");
+        return new UploadS3Adapter(S3Client.builder().region(Region.US_EAST_1).build());
     }
 }

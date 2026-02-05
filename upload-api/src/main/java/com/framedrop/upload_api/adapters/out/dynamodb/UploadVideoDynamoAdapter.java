@@ -18,7 +18,7 @@ public class UploadVideoDynamoAdapter implements UploadVideoMetadataOutputPort {
     }
 
     @Override
-    public UploadVideo getByUploadVideoByUserId(String userId) {
+    public UploadVideo getUploadVideoByUserId(String userId) {
         UploadVideoEntity dynamoEntity = repository.getById(userId);
 
         return new UploadVideo(dynamoEntity.getUploadVideoId(),
@@ -26,13 +26,12 @@ public class UploadVideoDynamoAdapter implements UploadVideoMetadataOutputPort {
                 dynamoEntity.getUserName(),
                 dynamoEntity.getVideoPath(),
                 dynamoEntity.getFileName(),
-                dynamoEntity.getFileExtension(),
                 dynamoEntity.getDateUploaded(),
                 dynamoEntity.getStatusProcess());
     }
 
     @Override
-    public void saveUploadVideoMetadata(UploadVideo uploadVideo) {
+    public void save(UploadVideo uploadVideo) {
         UploadVideoEntity entity = new UploadVideoEntity();
         entity.setUploadVideoId(uploadVideo.getUploadVideoId());
         entity.setUserId(uploadVideo.getUserId());
@@ -48,14 +47,13 @@ public class UploadVideoDynamoAdapter implements UploadVideoMetadataOutputPort {
     }
 
     @Override
-    public List<UploadVideo> getAllUploadVideosString() {
+    public List<UploadVideo> getAll() {
         return repository.listAll().stream().map(dynamoEntity -> new UploadVideo(
                 dynamoEntity.getUploadVideoId(),
                 dynamoEntity.getUserId(),
                 dynamoEntity.getUserName(),
                 dynamoEntity.getVideoPath(),
                 dynamoEntity.getFileName(),
-                dynamoEntity.getFileExtension(),
                 dynamoEntity.getDateUploaded(),
                 dynamoEntity.getStatusProcess()
         )).toList();

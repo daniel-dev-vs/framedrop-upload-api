@@ -15,13 +15,13 @@ public class UploadVideo {
     private LocalDateTime dateUploaded;
     private StatusProcess statusProcess;
 
-    public UploadVideo(String uploadVideoId, String userId, String userName, String videoPath, String fileName, String fileExtension, LocalDateTime dateUploaded, StatusProcess statusProcess) {
+    public UploadVideo(String uploadVideoId, String userId, String userName, String videoPath, String fileName, LocalDateTime dateUploaded, StatusProcess statusProcess) {
         this.uploadVideoId = uploadVideoId;
         this.userId = userId;
         this.userName = userName;
         this.videoPath = videoPath;
         this.fileName = fileName;
-        this.fileExtension = fileExtension;
+        this.fileExtension = getFileExtensionFromFileName(fileName);
         this.dateUploaded = dateUploaded;
         this.statusProcess = statusProcess;
     }
@@ -110,6 +110,14 @@ public class UploadVideo {
         if (statusProcess == null) {
             throw new IllegalArgumentException("Status process cannot be null");
         }
+    }
+
+    private String getFileExtensionFromFileName(String fileName) {
+        int lastDotIndex = fileName.lastIndexOf('.');
+        if (lastDotIndex == -1 || lastDotIndex == fileName.length() - 1) {
+            throw new IllegalArgumentException("File name must contain an extension");
+        }
+        return fileName.substring(lastDotIndex);
     }
 
 
