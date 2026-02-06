@@ -23,7 +23,7 @@ public class VideoEntity {
 
 
     @DynamoDbPartitionKey
-    @DynamoDbAttribute("VideoId")
+    @DynamoDbAttribute("videoId")
     public String getVideoId() {
         return videoId;
     }

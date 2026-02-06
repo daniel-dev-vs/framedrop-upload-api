@@ -2,11 +2,14 @@ package com.framedrop.upload_api.adapters.in.controller;
 
 import com.framedrop.upload_api.adapters.in.controller.dto.VideoDTO;
 import com.framedrop.upload_api.adapters.in.controller.dto.VideoStatusDTO;
+import com.framedrop.upload_api.adapters.out.SqsVideoQueueAdapter;
+import com.framedrop.upload_api.adapters.out.dto.VideoMetadata;
 import com.framedrop.upload_api.core.domain.ports.in.VideoInputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +19,8 @@ import java.util.UUID;
 public class VideoController {
 
     private final VideoInputPort videoInputPort;
+
+    private final SqsVideoQueueAdapter adapter;
 
     @GetMapping("/users/{id}")
     public ResponseEntity<List<VideoDTO>> getVideos(@PathVariable("id") String id) {
@@ -29,5 +34,16 @@ public class VideoController {
 
         videoInputPort.updateVideoStatus(videoId,videoStatus.status());
         return ResponseEntity.ok("Video status updated");
+    }
+
+    @GetMapping
+    public void testMethod() {
+        VideoMetadata videoMetadata = new VideoMetadata(
+                UUID.randomUUID().toString(),
+                "user123",
+                "sample_video.mp4",
+                ".mp4"
+        );
+        adapter.pushToQueue(videoMetadata);
     }
 }
