@@ -1,8 +1,8 @@
 package com.framedrop.upload_api.core.application.usecases;
 
 import com.framedrop.upload_api.adapters.in.controller.dto.UserDTO;
-import com.framedrop.upload_api.adapters.out.dynamodb.UploadVideoDynamoAdapter;
-import com.framedrop.upload_api.core.domain.model.UploadVideo;
+import com.framedrop.upload_api.adapters.out.dynamodb.VideoDynamoAdapter;
+import com.framedrop.upload_api.core.domain.model.Video;
 import com.framedrop.upload_api.core.domain.model.enums.StatusProcess;
 import com.framedrop.upload_api.core.domain.ports.in.UploadVideoInputPort;
 import com.framedrop.upload_api.core.domain.ports.out.UploadVideoOutputPort;
@@ -17,15 +17,15 @@ public class UploadVideoUseCase implements UploadVideoInputPort {
 
     private final UploadVideoOutputPort uploadVideoOutputPort;
 
-    private final UploadVideoDynamoAdapter uploadVideoDynamoAdapter;
+    private final VideoDynamoAdapter videoDynamoAdapter;
 
     private final ValidateVideoOutputPort validateVideoOutputPort;
 
     public UploadVideoUseCase(UploadVideoOutputPort uploadVideoOutputPort,
-                              UploadVideoDynamoAdapter uploadVideoDynamoAdapter,
+                              VideoDynamoAdapter videoDynamoAdapter,
                                 ValidateVideoOutputPort validateVideoOutputPort) {
         this.uploadVideoOutputPort = uploadVideoOutputPort;
-        this.uploadVideoDynamoAdapter = uploadVideoDynamoAdapter;
+        this.videoDynamoAdapter = videoDynamoAdapter;
         this.validateVideoOutputPort = validateVideoOutputPort;
     }
 
@@ -37,7 +37,7 @@ public class UploadVideoUseCase implements UploadVideoInputPort {
                 throw new IllegalArgumentException("Invalid video format");
             }
 
-            UploadVideo newUploadVideo = new UploadVideo(
+            Video newVideo = new Video(
                     UUID.randomUUID().toString(),
                     userDto.userId(),
                     userDto.userName(),
@@ -46,8 +46,8 @@ public class UploadVideoUseCase implements UploadVideoInputPort {
                     LocalDateTime.now(),
                     StatusProcess.PENDING);
 
-            uploadVideoDynamoAdapter.save(newUploadVideo);
-            uploadVideoOutputPort.uploadVideoToStorage(newUploadVideo.getVideoPath(), videoFile);
+            videoDynamoAdapter.save(newVideo);
+            uploadVideoOutputPort.uploadVideoToStorage(newVideo.getVideoPath(), videoFile);
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload video", e);
         }

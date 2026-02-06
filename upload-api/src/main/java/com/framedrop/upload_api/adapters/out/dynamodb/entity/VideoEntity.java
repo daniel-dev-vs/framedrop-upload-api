@@ -2,17 +2,17 @@ package com.framedrop.upload_api.adapters.out.dynamodb.entity;
 
 import com.framedrop.upload_api.core.domain.model.enums.StatusProcess;
 import org.springframework.stereotype.Component;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
 import java.time.LocalDateTime;
 
 @DynamoDbBean
-@Component
-public class UploadVideoEntity {
+public class VideoEntity {
 
 
-    private String uploadVideoId;
+    private String videoId;
     private String userId;
     private String userName;
     private String videoPath;
@@ -23,12 +23,13 @@ public class UploadVideoEntity {
 
 
     @DynamoDbPartitionKey
-    public String getUploadVideoId() {
-        return uploadVideoId;
+    @DynamoDbAttribute("VideoId")
+    public String getVideoId() {
+        return videoId;
     }
 
-    public void setUploadVideoId(String uploadVideoId) {
-        this.uploadVideoId = uploadVideoId;
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
     public String getUserId() {

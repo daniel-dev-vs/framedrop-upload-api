@@ -3,10 +3,9 @@ package com.framedrop.upload_api.core.domain.model;
 import com.framedrop.upload_api.core.domain.model.enums.StatusProcess;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class UploadVideo {
-    private String uploadVideoId;
+public class Video {
+    private String videoId;
     private String userId;
     private String userName;
     private String videoPath;
@@ -15,8 +14,8 @@ public class UploadVideo {
     private LocalDateTime dateUploaded;
     private StatusProcess statusProcess;
 
-    public UploadVideo(String uploadVideoId, String userId, String userName, String videoPath, String fileName, LocalDateTime dateUploaded, StatusProcess statusProcess) {
-        this.uploadVideoId = uploadVideoId;
+    public Video(String videoId, String userId, String userName, String videoPath, String fileName, LocalDateTime dateUploaded, StatusProcess statusProcess) {
+        this.videoId = videoId;
         this.userId = userId;
         this.userName = userName;
         this.videoPath = videoPath;
@@ -26,8 +25,8 @@ public class UploadVideo {
         this.statusProcess = statusProcess;
     }
 
-    public String getUploadVideoId() {
-        return uploadVideoId;
+    public String getVideoId() {
+        return videoId;
     }
     public String getUserId() {
         return userId;

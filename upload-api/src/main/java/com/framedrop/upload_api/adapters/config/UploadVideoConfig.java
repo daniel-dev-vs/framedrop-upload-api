@@ -1,7 +1,7 @@
 package com.framedrop.upload_api.adapters.config;
 
 import com.framedrop.upload_api.adapters.out.UploadS3Adapter;
-import com.framedrop.upload_api.adapters.out.dynamodb.UploadVideoDynamoAdapter;
+import com.framedrop.upload_api.adapters.out.dynamodb.VideoDynamoAdapter;
 import com.framedrop.upload_api.core.application.usecases.UploadVideoUseCase;
 import com.framedrop.upload_api.core.domain.ports.in.UploadVideoInputPort;
 import com.framedrop.upload_api.core.domain.ports.out.UploadVideoOutputPort;
@@ -19,10 +19,10 @@ public class UploadVideoConfig {
 
     @Bean
     public UploadVideoInputPort createUploadVideoInputPort(UploadVideoOutputPort uploadVideoOutputPort,
-                                                           UploadVideoDynamoAdapter uploadVideoDynamoAdapter,
+                                                           VideoDynamoAdapter videoDynamoAdapter,
                                                            ValidateVideoOutputPort validateVideoOutputPort) {
 
-        return new UploadVideoUseCase(uploadVideoOutputPort, uploadVideoDynamoAdapter, validateVideoOutputPort);
+        return new UploadVideoUseCase(uploadVideoOutputPort, videoDynamoAdapter, validateVideoOutputPort);
     }
 
     @Bean
