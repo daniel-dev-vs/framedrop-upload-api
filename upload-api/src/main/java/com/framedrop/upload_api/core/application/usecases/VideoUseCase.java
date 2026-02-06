@@ -1,6 +1,8 @@
 package com.framedrop.upload_api.core.application.usecases;
 
 import com.framedrop.upload_api.adapters.in.controller.dto.VideoDTO;
+import com.framedrop.upload_api.core.domain.model.Video;
+import com.framedrop.upload_api.core.domain.model.enums.StatusProcess;
 import com.framedrop.upload_api.core.domain.ports.in.VideoInputPort;
 import com.framedrop.upload_api.core.domain.ports.out.VideoOutputPort;
 
@@ -26,5 +28,12 @@ public class VideoUseCase implements VideoInputPort {
                 v.getDateUploaded(),
                 v.getStatusProcess()
         )).toList();
+    }
+
+    @Override
+    public void updateVideoStatus(String videoId, String status) {
+        Video video = videoOutputPort.getVideoById(videoId);
+        video.setStatusProcess(StatusProcess.valueOf(status));
+        videoOutputPort.save(video);
     }
 }

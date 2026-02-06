@@ -18,6 +18,18 @@ public class VideoDynamoAdapter implements VideoOutputPort {
     }
 
     @Override
+    public Video getVideoById(String videoId) {
+        VideoEntity entity = repository.getVideoById(videoId);
+        return new Video(entity.getVideoId(),
+                entity.getUserId(),
+                entity.getUserName(),
+                entity.getVideoPath(),
+                entity.getFileName(),
+                entity.getDateUploaded(),
+                entity.getStatusProcess());
+    }
+
+    @Override
     public List<Video> getVideosByUserId(String userId) {
 
         return repository.listAll().stream().map(dynamoEntity -> new Video(

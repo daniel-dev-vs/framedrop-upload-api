@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface VideoOutputPort {
 
+    Video getVideoById(String videoId);
     List<Video> getVideosByUserId(String userId);
     void save(Video video);
     List<Video> getAll();

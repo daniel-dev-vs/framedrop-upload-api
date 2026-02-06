@@ -19,6 +19,11 @@ public class VideoRepository {
         this.videoEntityDynamoDbTable = enhancedClient.table("Video", TableSchema.fromBean(VideoEntity.class));
     }
 
+
+    public VideoEntity getVideoById(String videoId){
+        return videoEntityDynamoDbTable.getItem(Key.builder().partitionValue(videoId).build());
+    }
+
     public void save(VideoEntity videoEntity){
         videoEntityDynamoDbTable.putItem(videoEntity);
     }

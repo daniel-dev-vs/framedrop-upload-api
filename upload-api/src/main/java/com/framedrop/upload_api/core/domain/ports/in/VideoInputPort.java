@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface VideoInputPort {
     List<VideoDTO> getAllVideosByUserId(String userId);
+
+    void updateVideoStatus(String videoId, String status);
 }
