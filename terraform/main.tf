@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "framedrop_upload_app" {
   execution_role_arn       = data.aws_iam_role.lab_role.arn
   task_role_arn            = data.aws_iam_role.lab_role.arn
   container_definitions = jsonencode([{
-    name      = "framedrop-api-app"
+    name      = "framedrop-upload-app"
     image     = "${data.aws_ecr_repository.framedrop_upload_app_repo.repository_url}:latest"
     essential = true
     portMappings = [{
