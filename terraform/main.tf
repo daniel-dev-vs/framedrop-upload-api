@@ -48,7 +48,7 @@ resource "aws_ecs_task_definition" "framedrop_upload_app" {
     logConfiguration = {
       logDriver = "awslogs"
       options = {
-        "awslogs-group"         = "/ecs/framedrop-upload-task-definition"
+        "awslogs-group"         = aws_cloudwatch_log_group.framedrop_upload_app_logs.name
         "awslogs-region"        = "us-east-1"
         "awslogs-stream-prefix" = "ecs"
       }
@@ -81,6 +81,7 @@ resource "aws_ecs_service" "framedrop_upload_app_service" {
   task_definition = aws_ecs_task_definition.framedrop_upload_app.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  force_new_deployment = true
 
   network_configuration {
     subnets          = data.aws_subnets.aws_subnets_default.ids
@@ -96,10 +97,6 @@ resource "aws_ecs_service" "framedrop_upload_app_service" {
 
   deployment_minimum_healthy_percent = 50
   deployment_maximum_percent         = 200
-
-  lifecycle {
-    ignore_changes = [task_definition]
-  }
 
 }
 
