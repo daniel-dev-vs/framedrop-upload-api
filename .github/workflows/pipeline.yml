@@ -50,7 +50,7 @@ jobs:
           path: ${{ github.workspace }}/upload-api/target/*.jar
 
   docker-build:
-    needs: [test, sonar,build]
+    needs: [test,build]
     uses: ./.github/workflows/ecr.yml
     secrets: inherit
 
