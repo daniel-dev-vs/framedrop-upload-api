@@ -90,7 +90,7 @@ resource "aws_ecs_service" "framedrop_upload_app_service" {
 
   load_balancer {
     target_group_arn = data.aws_lb_target_group.framedrop_upload_lb_target_group.arn
-    container_name   = "framedrop-api-app"
+    container_name   = "framedrop-upload-app"
     container_port   = 8080
   }
 
