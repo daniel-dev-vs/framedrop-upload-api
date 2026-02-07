@@ -28,7 +28,7 @@ resource "aws_security_group" "ecs_sg" {
 
 
 resource "aws_ecs_task_definition" "framedrop_upload_app" {
-  family                   = "framedrop-upload-task-family"
+  family                   = "framedrop-upload-task-definition"
   cpu                      = "256"
   memory                   = "512"
   network_mode             = "awsvpc"
@@ -48,7 +48,7 @@ resource "aws_ecs_task_definition" "framedrop_upload_app" {
     logConfiguration = {
       logDriver = "awslogs"
       options = {
-        "awslogs-group"         = "/ecs/framedrop-upload-task-family"
+        "awslogs-group"         = "/ecs/framedrop-upload-task-definition"
         "awslogs-region"        = "us-east-1"
         "awslogs-stream-prefix" = "ecs"
       }
@@ -68,7 +68,6 @@ resource "aws_ecs_task_definition" "framedrop_upload_app" {
         value = "us-east-1"
       }
     ]
-
     
 
   }])
