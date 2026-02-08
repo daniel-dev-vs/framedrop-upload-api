@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "framedrop_upload_app" {
       interval    = 60
       timeout     = 5
       retries     = 5
-      startPeriod = 60
+      startPeriod = 120
     }
 
     environment = [
