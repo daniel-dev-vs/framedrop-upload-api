@@ -68,6 +68,17 @@ resource "aws_ecs_task_definition" "framedrop_upload_app" {
         value = "us-east-1"
       }
     ]
+
+    secrets = [
+      {
+        name      = "S3_BUCKET_NAME"
+        valueFrom = data.aws_ssm_parameter.bucket_name.arn
+      },
+      {
+        name      = "SQS_VIDEO_PROCESSING_QUEUE_URL"
+        valueFrom = data.aws_ssm_parameter.sqs_video_processing_queue_url.arn
+      }
+    ]
     
 
   }])
