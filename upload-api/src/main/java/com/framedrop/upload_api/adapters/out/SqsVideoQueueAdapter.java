@@ -2,28 +2,30 @@ package com.framedrop.upload_api.adapters.out;
 
 import com.framedrop.upload_api.adapters.out.dto.VideoMetadata;
 import com.framedrop.upload_api.core.domain.ports.out.VideoProcessQueueOutPut;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import tools.jackson.databind.ObjectMapper;
 
 @Component
+@RequiredArgsConstructor
 public class SqsVideoQueueAdapter implements VideoProcessQueueOutPut {
 
     private final SqsClient sqsClient;
     private final ObjectMapper objectMapper;
 
-    public SqsVideoQueueAdapter(SqsClient sqsClient, ObjectMapper objectMapper) {
-        this.sqsClient = sqsClient;
-        this.objectMapper = objectMapper;
-    }
+    @Value("{aws.sqs.video-processing-queue-url}")
+    private final String queueUrl;
+
 
     @Override
     public void pushToQueue(VideoMetadata videoMetadata) {
         String jsonMessage = objectMapper.writeValueAsString(videoMetadata);
 
         SendMessageRequest sendMsqsageRequest = SendMessageRequest.builder()
-                .queueUrl("https://sqs.us-east-1.amazonaws.com/356821122440/VideoProcessingQueue")
+                .queueUrl(queueUrl)
                 .messageBody(jsonMessage)
                 .delaySeconds(0)
                 .build();

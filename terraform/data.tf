@@ -46,3 +46,11 @@ data "aws_security_group" "alb_sg" {
 data "aws_lb_target_group" "framedrop_upload_lb_target_group" {
   name = "framedrop-alb-tg"
 }
+
+data "aws_ssm_parameter" "bucket_name" {
+  name = "/framedrop/infra/bucket_name"
+}
+
+data "aws_ssm_parameter" "sqs_video_processing_queue_url" {
+  name = "/framedrop/infra/sqs_video_processing_queue_url"
+}

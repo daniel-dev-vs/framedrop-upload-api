@@ -17,11 +17,14 @@ public class UploadS3Adapter implements UploadVideoOutputPort {
 
     private final S3Client s3Client;
 
+    @Value("${aws.s3.bucket-name}")
+    private String bucketName;
+
     @Override
     public void uploadVideoToStorage(String videoFilePath, MultipartFile videoFile) throws IOException {
 
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket("framedrop-upload")
+                .bucket(bucketName)
                 .key(videoFilePath)
                 .contentType(videoFile.getContentType())
                 .build();
