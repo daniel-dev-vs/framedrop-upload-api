@@ -16,8 +16,8 @@ public class SqsVideoQueueAdapter implements VideoProcessQueueOutPut {
     private final SqsClient sqsClient;
     private final ObjectMapper objectMapper;
 
-    @Value("{aws.sqs.video-processing-queue-url}")
-    private final String queueUrl;
+    @Value("${aws.sqs.video-processing-queue-url}")
+    private String queueUrl;
 
 
     @Override
